@@ -1,0 +1,5 @@
+# Dashboard financiero: la vista principal es rastreable; la API (JSON) no es contenido indexable.
+# Si se despliega con datos reales/privados, cambiar a "Disallow: /" y añadir meta robots noindex.
+User-agent: *
+Allow: /
+Disallow: /api/
