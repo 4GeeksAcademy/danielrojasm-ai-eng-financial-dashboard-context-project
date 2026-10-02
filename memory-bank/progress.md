@@ -22,7 +22,8 @@ auditó el árbol de accesibilidad, el teclado y estados que Lighthouse no ve (c
 
 Rechazado: skip link (una sola vista sin navegación repetida) y `aria-label` en iconos (lucide ya pone `aria-hidden`).
 Contraste de texto verificado con cálculo directo de los tokens oklch: el mínimo es 5.17:1 (muted sobre card).
-Pendiente: las animaciones de Recharts son JS y no respetan `prefers-reduced-motion`.
+Seguimiento (revisión del PR #2): las animaciones de Recharts (JS) ahora respetan
+`prefers-reduced-motion` mediante `usePrefersReducedMotion` + `isAnimationActive`.
 
 ### 2. `vercel-react-best-practices` (vercel-labs/agent-skills) — commit `e6c3572`
 
@@ -56,11 +57,12 @@ agents) no atacaban un fallo verificado del repo.
 ### 4. Skill interna: `.skills/dashboard-pre-merge-qa` — commit `a1c34f3`
 
 QA pre-merge específico del repo (objetivo, inputs, pasos, output, criterios de aceptación).
-Probada sobre esta rama: veredicto LISTO. Detectó como deuda los `tickFormatter` ad hoc del eje Y.
+Probada sobre esta rama: veredicto LISTO. Detectó como deuda los `tickFormatter` ad hoc del eje Y,
+ya resuelta con `formatCompactCurrency` y `formatPercent(v, 0)` (tests incluidos).
 
 ### Verificación final de la sesión
 
-- `npm run build` OK (solo el aviso de chunk aceptado), `npm run lint` limpio, `npm test` 5/5.
+- `npm run build` OK (solo el aviso de chunk aceptado), `npm run lint` limpio, `npm test` 7/7.
 - `docker compose exec -T backend python -m pytest -q`: 15 passed.
 - Lighthouse (dev server): accesibilidad 100, buenas prácticas 100, SEO 100.
 - Teclado: Tab llega a ambos gráficos con foco visible; las flechas recorren los meses con tooltip en español.

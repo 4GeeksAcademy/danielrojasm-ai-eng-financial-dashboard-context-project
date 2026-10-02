@@ -1,7 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { type MonthlyDataPoint } from '@/lib/financial-types'
-import { formatCurrency } from '@/lib/financial-utils'
+import { formatCompactCurrency, formatCurrency } from '@/lib/financial-utils'
+import { usePrefersReducedMotion } from '@/lib/use-prefers-reduced-motion'
 import { ChartDataTable } from './chart-data-table'
 import {
   LineChart,
@@ -48,6 +49,8 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
 }
 
 export function IncomeOutcomeChart({ data, loading }: IncomeOutcomeChartProps) {
+  const reduceMotion = usePrefersReducedMotion()
+
   if (loading) {
     return (
       <Card className="border-border/60">
@@ -97,7 +100,7 @@ export function IncomeOutcomeChart({ data, loading }: IncomeOutcomeChartProps) {
                   tick={{ fontSize: 11, fill: 'var(--color-muted-foreground)' }}
                   axisLine={false}
                   tickLine={false}
-                  tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`}
+                  tickFormatter={formatCompactCurrency}
                   width={48}
                 />
                 <Tooltip content={<CustomTooltip />} />
@@ -114,6 +117,7 @@ export function IncomeOutcomeChart({ data, loading }: IncomeOutcomeChartProps) {
                   strokeWidth={2}
                   dot={{ r: 3, fill: 'var(--chart-income)', strokeWidth: 0 }}
                   activeDot={{ r: 5, strokeWidth: 0 }}
+                  isAnimationActive={!reduceMotion}
                 />
                 <Line
                   type="monotone"
@@ -123,6 +127,7 @@ export function IncomeOutcomeChart({ data, loading }: IncomeOutcomeChartProps) {
                   strokeWidth={2}
                   dot={{ r: 3, fill: 'var(--chart-outcome)', strokeWidth: 0 }}
                   activeDot={{ r: 5, strokeWidth: 0 }}
+                  isAnimationActive={!reduceMotion}
                 />
               </LineChart>
             </ResponsiveContainer>

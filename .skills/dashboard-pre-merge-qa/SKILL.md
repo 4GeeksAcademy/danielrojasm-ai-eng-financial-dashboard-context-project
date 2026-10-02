@@ -42,8 +42,9 @@ salida de cada comando, no una opinión.
 6. **Convenciones de UI del repo:**
    - Textos visibles en **español** y `<html lang="es">`; sin mezclar idiomas en la vista.
    - Meses con `toLocaleDateString("es-ES")` (`"dic 2025"`); importes con `formatCurrency`
-     (`"$1,235"`, USD); porcentajes con `formatPercent` (`"15.6%"`). No crear formateadores ad hoc.
-     Deuda conocida (no bloquea): los `tickFormatter` del eje Y en ambos gráficos son ad hoc.
+     (`"$1,235"`, USD) o `formatCompactCurrency` en ejes (`"$68K"`); porcentajes con
+     `formatPercent(v, decimales)` (`"15.6%"`). No crear formateadores ad hoc en componentes.
+   - Animaciones JS (Recharts): `isAnimationActive={!usePrefersReducedMotion()}`.
    - Colores solo vía tokens de `src/index.css` (`--chart-*`, `--*-badge*`); el texto requiere ≥ 4.5:1
      y los gráficos/foco ≥ 3:1 sobre `--card` (tema oscuro: `main.dark`).
 7. **Decisiones ya medidas (no reabrir sin datos nuevos):** no aplicar lazy-load (`React.lazy`) a los

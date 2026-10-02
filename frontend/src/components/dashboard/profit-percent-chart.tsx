@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Skeleton } from '@/components/ui/skeleton'
 import { type MonthlyDataPoint } from '@/lib/financial-types'
 import { formatPercent } from '@/lib/financial-utils'
+import { usePrefersReducedMotion } from '@/lib/use-prefers-reduced-motion'
 import { ChartDataTable } from './chart-data-table'
 import {
   LineChart,
@@ -43,13 +44,15 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
           style={{ backgroundColor: 'var(--chart-profit)' }}
         />
         <span className="text-muted-foreground">Margen de ganancia:</span>
-        <span className="font-medium text-foreground ml-auto pl-4">{value.toFixed(1)}%</span>
+        <span className="font-medium text-foreground ml-auto pl-4">{formatPercent(value)}</span>
       </div>
     </div>
   )
 }
 
 export function ProfitPercentChart({ data, loading }: ProfitPercentChartProps) {
+  const reduceMotion = usePrefersReducedMotion()
+
   if (loading) {
     return (
       <Card className="border-border/60">
@@ -99,7 +102,7 @@ export function ProfitPercentChart({ data, loading }: ProfitPercentChartProps) {
                   tick={{ fontSize: 11, fill: 'var(--color-muted-foreground)' }}
                   axisLine={false}
                   tickLine={false}
-                  tickFormatter={(v) => `${v.toFixed(0)}%`}
+                  tickFormatter={(v: number) => formatPercent(v, 0)}
                   width={40}
                   domain={['auto', 'auto']}
                 />
@@ -113,6 +116,7 @@ export function ProfitPercentChart({ data, loading }: ProfitPercentChartProps) {
                   strokeWidth={2}
                   dot={{ r: 3, fill: 'var(--chart-profit)', strokeWidth: 0 }}
                   activeDot={{ r: 5, strokeWidth: 0 }}
+                  isAnimationActive={!reduceMotion}
                 />
               </LineChart>
             </ResponsiveContainer>
