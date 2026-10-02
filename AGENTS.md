@@ -5,8 +5,9 @@ Agents working on this project **must**:
 - Look for **work instructions and rules** in the directory:  
   `./.agents/rules`
 
-- Look for available **agent skills** in the directory:  
-  `./.agents/skills`
+- Look for available **agent skills** in:  
+  `./.skills` — internal project skills (e.g. `dashboard-pre-merge-qa`, run it before any merge to `main`)  
+  `./.claude/skills` — community skills installed with `npx skills add` (pinned in `skills-lock.json`)
 
 - Look for the **project memory bank** in:  
   `./memory-bank`  

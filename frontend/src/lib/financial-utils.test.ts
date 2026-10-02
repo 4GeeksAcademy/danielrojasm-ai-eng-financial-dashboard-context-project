@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   computeKPIs,
   computeMonthlyData,
+  formatCompactCurrency,
   formatCurrency,
   formatPercent,
 } from "./financial-utils";
@@ -89,13 +90,13 @@ describe("computeMonthlyData", () => {
 
     expect(monthlyData).toHaveLength(2);
     expect(monthlyData[0]).toEqual({
-      month: "Dec 2025",
+      month: "dic 2025",
       income: 1000,
       outcome: 200,
       profitPercent: 80,
     });
     expect(monthlyData[1]).toEqual({
-      month: "Jan 2026",
+      month: "ene 2026",
       income: 300,
       outcome: 0,
       profitPercent: 100,
@@ -110,5 +111,15 @@ describe("formatters", () => {
 
   it("formats percent with one decimal", () => {
     expect(formatPercent(15.555)).toBe("15.6%");
+  });
+
+  it("formats percent with custom decimals for axis ticks", () => {
+    expect(formatPercent(-45.4, 0)).toBe("-45%");
+  });
+
+  it("formats compact currency for axis ticks", () => {
+    expect(formatCompactCurrency(0)).toBe("$0");
+    expect(formatCompactCurrency(68361)).toBe("$68K");
+    expect(formatCompactCurrency(1250000)).toBe("$1M");
   });
 });

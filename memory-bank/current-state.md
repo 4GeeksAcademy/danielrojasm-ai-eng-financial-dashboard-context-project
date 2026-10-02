@@ -19,7 +19,15 @@ Frontend:
 - KPIs calculados en cliente a partir de movimientos.
 - Grafico de ingresos vs egresos.
 - Grafico de porcentaje de ganancia.
-- Manejo basico de estado de carga y error.
+- Manejo basico de estado de carga y error (anunciados con role="status" / role="alert").
+- UI en espanol (lang="es"); meses formateados con es-ES.
+
+Linea base de calidad (2026-10-02, ver progress.md):
+
+- Lighthouse: accesibilidad 100, buenas practicas 100, SEO 100.
+- Graficos accesibles: title/desc + tabla sr-only (ChartDataTable), navegables con teclado.
+- Aviso de build "chunk > 500 kB" aceptado: medido, dividir el bundle empeora el LCP.
+- QA pre-merge: skill interna .skills/dashboard-pre-merge-qa.
 
 Testing:
 
